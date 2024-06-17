@@ -9,7 +9,12 @@ readme = "README.md"
 python = "^3.12"
 selene = {version = "^2.0.0rc9", allow-prereleases = true}
 pytest = "^8.2.2"
+black = "^24.4.2"
+python-dotenv = "^1.0.1"
 
+[tool.black]
+line-length = 79
+skip-string-normalization = 1
 
 [build-system]
 requires = ["poetry-core"]
