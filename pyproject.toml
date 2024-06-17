@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "demoblaze-tests"
+version = "0.1.0"
+description = ""
+authors = ["lrayne <legaterayne@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+selene = {version = "^2.0.0rc9", allow-prereleases = true}
+pytest = "^8.2.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
