@@ -1,61 +1,44 @@
-from selene import browser, be, have
-from selene.support.shared.jquery_style import s
-from demoblaze_tests.utils import wait_until_alert_is_present
+from selene import be, have
 from demoblaze_tests.data import users
+from demoblaze_tests.app import app
 
 
 def test_register_an_user_successfully():
 
-    # GIVEN
     user = users.user_with_random_credentials
-    browser.open('https://www.demoblaze.com')
 
-    # WHEN
-    s('#signin2').click()
-    s('#sign-username').type(user.login)
-    s('#sign-password').type(user.password)
-    s('#signInModal').s('.btn-primary').click()
+    app.home_page.open()
+    app.home_page.menu.sign_up()
+    app.home_page.sign_up_modal.fill(user.login, user.password)
+    app.home_page.sign_up_modal.confirm()
+    app.home_page.sign_up_modal.alert.confirm()
 
-    # AND
-    wait_until_alert_is_present()
-    browser.driver.switch_to.alert.accept()
-
-    # THEN
-    s('#signInModal').should(be.not_.visible)
+    app.home_page.sign_up_modal.user_data.should(be.not_.visible)
 
 
-def test_authorize_an_existing_user():
+def test_log_in_using_an_existing_user_account():
 
-    # GIVEN
     user = users.existing_user
-    browser.open('https://www.demoblaze.com')
 
-    # WHEN
-    s('#login2').click()
-    s('#loginusername').type(user.login)
-    s('#loginpassword').type(user.password)
-    s('#logInModal').s('.btn-primary').click()
+    app.home_page.open()
+    app.home_page.menu.log_in()
+    app.home_page.log_in_modal.fill(user.login, user.password)
+    app.home_page.log_in_modal.confirm()
 
-    # THEN
-    s('#nameofuser').should(have.exact_text(f'Welcome {user.login}'))
+    app.home_page.menu.welcome_phrase.should(
+        have.exact_text(f'Welcome {user.login}')
+    )
 
 
-def test_register_an_user_unsuccessfully():
+def test_log_in_unsuccessfully():
 
-    # GIVEN
     user = users.existing_user
-    browser.open('https://www.demoblaze.com')
 
-    # WHEN
-    s('#login2').click()
-    s('#loginusername').type(user.login)
-    s('#loginpassword').type(user.login)
-    s('#logInModal').s('.btn-primary').click()
+    app.home_page.open()
+    app.home_page.menu.log_in()
+    app.home_page.log_in_modal.fill(user.login, password='invalid password')
+    app.home_page.log_in_modal.confirm()
+    app.home_page.log_in_modal.alert.confirm()
+    app.home_page.log_in_modal.close()
 
-    # AND
-    wait_until_alert_is_present()
-    browser.driver.switch_to.alert.accept()
-
-    # THEN
-    s('#logInModal').s('.close').click()
-    s('#nameofuser').should(be.hidden)
+    app.home_page.menu.welcome_phrase.should(be.not_.visible)
