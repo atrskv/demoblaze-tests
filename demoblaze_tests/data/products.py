@@ -24,3 +24,14 @@ monitor = Product(
     description='ASUS VS247H-P 23.6- Inch Full HD',
     price='230',
 )
+
+
+laptop = Product(
+    name='Sony vaio i5',
+    description='''Sony is so confident that the VAIO S is 
+            a superior ultraportable laptop that the company 
+            proudly compares the notebook to Apple's 13-inch MacBook Pro. 
+            And in a lot of ways this notebook is better, 
+            thanks to a lighter weight.''',
+    price='790',
+)
