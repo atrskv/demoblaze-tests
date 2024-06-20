@@ -1,48 +1,29 @@
-from selene import browser, have
-from selene.support.shared.jquery_style import s
-from demoblaze_tests.utils import wait_until_alert_is_present
+from selene import have
 from demoblaze_tests.data import products
+from demoblaze_tests.app import app
 
 
 def test_add_a_product_to_the_cart():
 
-    # GIVEN
     phone = products.phone
-    browser.open('https://www.demoblaze.com')
 
-    # WHEN
-    s('#tbodyid').ss('.card-title').element_by(
-        have.exact_text(phone.name)
-    ).click()
+    app.home_page.open()
+    app.home_page.products.open_card(phone.name)
+    app.product_card_page.add_to_the_card()
+    app.product_card_page.menu.open_cart()
 
-    s('.product-content').s('.btn-success').click()
-
-    # AND
-    wait_until_alert_is_present()
-    browser.driver.switch_to.alert.accept()
-
-    s('.navbar-nav').s('#cartur').click()
-
-    # THEN
-    s('#tbodyid').ss('tr').first.ss('td').second.should(
+    app.cart_page.cart.name_of_added_product.should(
         have.exact_text(phone.name)
     )
-
-    s('#totalp').should(have.exact_text(phone.price))
 
 
 def test_filter_the_products_by_monitors_category():
 
-    # GIVEN
     monitor = products.monitor
-    browser.open('https://www.demoblaze.com')
 
-    # WHEN
-    s('.list-group').ss('.list-group-item').element_by(
-        have.exact_text('Monitors')
-    ).click()
+    app.home_page.open()
+    app.home_page.products.categories.sort_by_monitors()
 
-    # THEN
-    cards = s('#tbodyid').ss('.card-title')
-    cards.should(have.size(2))
-    cards.second.should(have.exact_text(monitor.name))
+    app.home_page.products.cards.should(have.size(2)).second.should(
+        have.exact_text(monitor.name)
+    )
