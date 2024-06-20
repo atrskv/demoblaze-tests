@@ -1,7 +1,7 @@
 import pytest
 from selene import browser
 
-from demoblaze_tests.utils import add_logs, add_screenshot, add_html
+from demoblaze_tests.utils import add_logs, add_screenshot, add_html, add_video
 
 
 @pytest.fixture(scope='function', autouse=True)
@@ -16,5 +16,6 @@ def browser_management():
     add_screenshot(browser)
     add_logs(browser)
     add_html(browser)
+    add_video(browser)
 
     browser.quit()
