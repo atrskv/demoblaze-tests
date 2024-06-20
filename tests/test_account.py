@@ -2,9 +2,11 @@ from selene import be, have
 from demoblaze_tests.data import users
 from demoblaze_tests.app import app
 import allure
+from allure_commons.types import Severity
 
 
 @allure.tag('smoke')
+@allure.severity(Severity.CRITICAL)
 @allure.suite('Аккаунт')
 @allure.title('Регистрация нового пользователя')
 def test_register_an_user_successfully():
@@ -21,6 +23,7 @@ def test_register_an_user_successfully():
 
 
 @allure.tag('smoke')
+@allure.severity(Severity.CRITICAL)
 @allure.suite('Аккаунт')
 @allure.title('Авторизация существующего пользователя')
 def test_log_in_using_an_existing_user_account():
@@ -38,6 +41,7 @@ def test_log_in_using_an_existing_user_account():
 
 
 @allure.tag('smoke')
+@allure.severity(Severity.CRITICAL)
 @allure.suite('Аккаунт')
 @allure.title('Авторизация существующего пользователя с неверным паролем')
 def test_log_in_unsuccessfully():

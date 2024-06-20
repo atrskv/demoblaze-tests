@@ -4,6 +4,7 @@ from demoblaze_tests.data.products import Product
 from demoblaze_tests.app import app
 from demoblaze_tests.data import users
 import allure
+from allure_commons.types import Severity
 
 
 def add_the_products_to_the_cart(*products: Product):
@@ -17,6 +18,7 @@ def add_the_products_to_the_cart(*products: Product):
 
 
 @allure.tag('smoke')
+@allure.severity(Severity.CRITICAL)
 @allure.suite('Корзина')
 @allure.title('Удаление товара из корзины')
 def test_remove_a_product_from_the_cart():
@@ -31,6 +33,7 @@ def test_remove_a_product_from_the_cart():
 
 
 @allure.tag('smoke')
+@allure.severity(Severity.CRITICAL)
 @allure.suite('Корзина')
 @allure.title('Оформление заказа')
 def test_place_a_purchase_order():
