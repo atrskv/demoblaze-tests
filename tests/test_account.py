@@ -1,8 +1,12 @@
 from selene import be, have
 from demoblaze_tests.data import users
 from demoblaze_tests.app import app
+import allure
 
 
+@allure.tag('smoke')
+@allure.suite('Аккаунт')
+@allure.title('Регистрация нового пользователя')
 def test_register_an_user_successfully():
 
     user = users.user_with_random_credentials
@@ -16,6 +20,9 @@ def test_register_an_user_successfully():
     app.home_page.sign_up_modal.user_data.should(be.not_.visible)
 
 
+@allure.tag('smoke')
+@allure.suite('Аккаунт')
+@allure.title('Авторизация существующего пользователя')
 def test_log_in_using_an_existing_user_account():
 
     user = users.existing_user
@@ -30,6 +37,9 @@ def test_log_in_using_an_existing_user_account():
     )
 
 
+@allure.tag('smoke')
+@allure.suite('Аккаунт')
+@allure.title('Авторизация существующего пользователя с неверным паролем')
 def test_log_in_unsuccessfully():
 
     user = users.existing_user

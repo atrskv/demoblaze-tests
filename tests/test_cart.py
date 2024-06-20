@@ -3,6 +3,7 @@ from demoblaze_tests.data import products
 from demoblaze_tests.data.products import Product
 from demoblaze_tests.app import app
 from demoblaze_tests.data import users
+import allure
 
 
 def add_the_products_to_the_cart(*products: Product):
@@ -15,6 +16,9 @@ def add_the_products_to_the_cart(*products: Product):
     app.product_card_page.menu.go_home()
 
 
+@allure.tag('smoke')
+@allure.suite('Корзина')
+@allure.title('Удаление товара из корзины')
 def test_remove_a_product_from_the_cart():
 
     phone, laptop = products.phone, products.laptop
@@ -26,6 +30,9 @@ def test_remove_a_product_from_the_cart():
     app.cart_page.cart.product(laptop.name).should(be.not_.visible)
 
 
+@allure.tag('smoke')
+@allure.suite('Корзина')
+@allure.title('Оформление заказа')
 def test_place_a_purchase_order():
 
     phone, laptop = products.phone, products.laptop

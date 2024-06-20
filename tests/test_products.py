@@ -1,8 +1,12 @@
+import allure
 from selene import have
 from demoblaze_tests.data import products
 from demoblaze_tests.app import app
 
 
+@allure.tag('smoke')
+@allure.suite('Товары')
+@allure.title('Добавление товара в корзину')
 def test_add_a_product_to_the_cart():
 
     phone = products.phone
@@ -17,6 +21,9 @@ def test_add_a_product_to_the_cart():
     )
 
 
+@allure.tag('smoke')
+@allure.suite('Товары')
+@allure.title('Фильтрация товаров по мониторам')
 def test_filter_the_products_by_monitors_category():
 
     monitor = products.monitor
