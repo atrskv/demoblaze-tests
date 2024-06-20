@@ -1,6 +1,5 @@
 from selene.support.shared.jquery_style import s
 from selene import browser
-
 from demoblaze_tests.model.components.menu import Menu
 from demoblaze_tests.utils import wait_until_alert_is_present
 

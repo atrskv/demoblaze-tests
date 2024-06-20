@@ -5,7 +5,7 @@ from demoblaze_tests.app import app
 from demoblaze_tests.data import users
 
 
-def add_the_products_into_the_cart(*products: Product):
+def add_the_products_to_the_cart(*products: Product):
 
     for product in products:
         app.home_page.open()
@@ -18,7 +18,7 @@ def add_the_products_into_the_cart(*products: Product):
 def test_remove_a_product_from_the_cart():
 
     phone, laptop = products.phone, products.laptop
-    add_the_products_into_the_cart(phone, laptop)
+    add_the_products_to_the_cart(phone, laptop)
 
     app.home_page.menu.open_cart()
     app.cart_page.cart.remove_product(laptop.name)
@@ -30,7 +30,7 @@ def test_place_a_purchase_order():
 
     phone, laptop = products.phone, products.laptop
     user = users.existing_user
-    add_the_products_into_the_cart(phone, laptop)
+    add_the_products_to_the_cart(phone, laptop)
 
     app.home_page.menu.open_cart()
     app.cart_page.place_order()
