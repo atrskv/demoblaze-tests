@@ -1,11 +1,10 @@
 from selene.support.shared.jquery_style import s
 from selene import have
-from selene.core.entity import Element
 
 
 class Menu:
-    def __init__(self, menu: Element):
-        self.menu = menu
+    def __init__(self):
+        self.menu = s('#navbarExample').s('.navbar-nav')
 
     def go_home(self):
         self._select('Home')
