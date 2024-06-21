@@ -11,34 +11,37 @@ from dotenv import load_dotenv
 import os
 
 
-@pytest.fixture(scope="session", autouse=True)
+def configure_browser(options):
+    browser.config.window_width = 1920
+    browser.config.window_height = 1080
+    browser.config.base_url = 'https://www.demoblaze.com'
+    browser.config.driver_options = options
+
+
+@pytest.fixture(scope='session', autouse=True)
 def load_env():
     load_dotenv()
 
 
-@pytest.fixture(scope='function', autouse=True)
-def browser_management():
-
-    browser.config.window_width = 1920
-    browser.config.window_height = 1080
-    browser.config.base_url = 'https://www.demoblaze.com'
+@pytest.fixture(scope='function')
+def browser_management_remote():
 
     options = Options()
     selenoid_capabilities = {
-        "browserName": "chrome",
-        "selenoid:options": {"enableVNC": True, "enableVideo": True},
+        'browserName': 'chrome',
+        'selenoid:options': {'enableVNC': True, 'enableVideo': True},
     }
 
-    selenoid_login = os.getenv("SELENOID_LOGIN")
-    selenoid_pass = os.getenv("SELENOID_PASS")
-    selenoid_url = os.getenv("SELENOID_URL")
+    selenoid_login = os.getenv('SELENOID_LOGIN')
+    selenoid_pass = os.getenv('SELENOID_PASS')
+    selenoid_url = os.getenv('SELENOID_URL')
 
     options.capabilities.update(selenoid_capabilities)
     browser.config.driver_remote_url = (
-        f"https://{selenoid_login}:{selenoid_pass}@{selenoid_url}/wd/hub"
+        f'https://{selenoid_login}:{selenoid_pass}@{selenoid_url}/wd/hub'
     )
 
-    browser.config.driver_options = options
+    configure_browser(options)
 
     yield browser
 
@@ -48,3 +51,35 @@ def browser_management():
     add_video(browser)
 
     browser.quit()
+
+
+@pytest.fixture(scope='function')
+def browser_management_local():
+    options = Options()
+    configure_browser(options)
+
+    yield browser
+
+    add_screenshot(browser)
+    add_logs(browser)
+    add_html(browser)
+
+    browser.quit()
+
+
+def pytest_addoption(parser):
+    parser.addoption(
+        '--mode',
+        action='store',
+        default='local',
+        help='Запуск локально/удаленно',
+    )
+
+
+@pytest.fixture(scope='function', autouse=True)
+def browser_management(request):
+    mode = request.config.getoption('--mode')
+    if mode == 'remote':
+        request.getfixturevalue('browser_management_remote')
+    else:
+        request.getfixturevalue('browser_management_local')
