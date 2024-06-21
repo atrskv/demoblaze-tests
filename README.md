@@ -1,12 +1,12 @@
 <p align="center">
-  <a href="https://www.demoblaze.com">
+  <a href="https://www.medusajs.com">
   <picture>
-    <img alt="Demoblaze logo" src="https://www.demoblaze.com/bm.png" width="50" height="50">
+<img alt="Medusa logo" src="https://demoblaze.com/favicon.ico" width="70" height="70">
     </picture>
   </a>
 </p>
 <h1 align="center">
-  Demoblaze ui tests
+  Demoblaze tests
 </h1>
 
 <p align="center">
@@ -21,22 +21,108 @@
   </a>
 </p>
 
-## Карта покрытия пользовательских путей
+## Запуск
 
+<details><summary>Локально</summary>
+
+1. Склонировать репозиторий:
+
+```
+git clone https://github.com/lrayne/demoblaze-tests.git
+```
+
+2. Установить зависимости:
+
+```
+poetry install
+```
+
+3. Создать `.env` в корне проекта (см. `.env.example`), внутри него указать:
+
+- **LOGIN** и **PASSWORD** — данные от аккаунта существующего пользователя на `demoblaze.com` *(используются в тест-кейсе авторизации)*
+- **NAME**, **COUNTRY**, **CITY**, **CREDIT_CARD**, **MONTH**, **YEAR** — данные, необходимые для оформления заказа
+
+4. Запустить тесты:
+
+```
+pytest . --mode=local
+```
+</details>
+
+<details><summary>Удалённо</summary>
+
+1. Склонировать репозиторий:
+
+```
+git clone https://github.com/lrayne/demoblaze-tests.git
+```
+
+2. Установить зависимости:
+
+```
+poetry install
+```
+
+3. Создать `.env` в корне проекта (см. `.env.example`), внутри него указать:
+
+- **LOGIN** и **PASSWORD** — данные от аккаунта существующего пользователя на `demoblaze.com` *(используются в тест-кейсе авторизации)*
+- **NAME**, **COUNTRY**, **CITY**, **CREDIT_CARD**, **MONTH**, **YEAR** — данные, необходимые для оформления заказа
+- **SELENOID_LOGIN**, **SELENOID_PASS**, **SELENOID_URL** — учетные данные и URL для удаленного запуска
+
+4. Запустить тесты:
+```
+pytest . --mode=remote
+```
+
+</details>
+
+## Отчёты
+
+### Allure
+<details><summary>Локально</summary>
+
+```
+allure serve allure-results/
+```
+
+В результате:
+
+<img src="resources/allure-report-local.png">
+
+
+</details>
+
+<details><summary>Удалённо</summary>
+
+```
+allure serve allure-results/
+```
+
+</details>
+
+### Telegram
+
+
+## Стратегия ветвления
 ```mermaid
-mindmap
-  root(**Demoblaze**)
-    Products[<a href='https://github.com/lrayne/demoblaze-tests/tree/develop/tests/test_products.py'>Товары</a>]
-      Добавить в корзину
-      Просмотреть
-        Категории
-            Телефоны
-            Ноутбуки
-            Мониторы
-    Cart[<a href='https://github.com/lrayne/demoblaze-tests/tree/develop/tests/test_cart.py'>Корзина</a>]
-        Удалить товар
-        Оформить заказ
-    Account[<a href='https://github.com/lrayne/demoblaze-tests/tree/develop/tests/test_account.py'>Аккаунт</a>]
-        Авторизоваться
-        Зарегистрироваться
+gitGraph
+   commit id: "Initial commit"
+   branch develop
+   branch task/short-description
+   commit
+   commit
+   checkout develop
+   merge task/short-description
+   checkout main
+   merge develop
+   checkout develop
+   branch fix/short-description
+   commit
+   commit
+   checkout develop
+   merge fix/short-description
+   checkout main
+   merge develop
+
+
 ```
