@@ -1,11 +1,10 @@
-from selene import be, have
 from demoblaze_tests.data import users
 from demoblaze_tests.app import app
 import allure
 from allure_commons.types import Severity
 
 
-@allure.tag('smoke')
+@allure.tag('web')
 @allure.severity(Severity.CRITICAL)
 @allure.suite('Аккаунт')
 @allure.title('Регистрация нового пользователя')
@@ -19,10 +18,10 @@ def test_register_an_user_successfully():
     app.home_page.sign_up_modal.confirm()
     app.home_page.sign_up_modal.alert.confirm()
 
-    app.home_page.sign_up_modal.user_data.should(be.not_.visible)
+    app.home_page.sign_up_modal.user_data_should_be_not_visible()
 
 
-@allure.tag('smoke')
+@allure.tag('web')
 @allure.severity(Severity.CRITICAL)
 @allure.suite('Аккаунт')
 @allure.title('Авторизация существующего пользователя')
@@ -35,12 +34,10 @@ def test_log_in_using_an_existing_user_account():
     app.home_page.log_in_modal.fill(user.login, user.password)
     app.home_page.log_in_modal.confirm()
 
-    app.home_page.menu.welcome_phrase.should(
-        have.exact_text(f'Welcome {user.login}')
-    )
+    app.home_page.menu.welcome_phrase_should_have_exact_text(user.login)
 
 
-@allure.tag('smoke')
+@allure.tag('web')
 @allure.severity(Severity.CRITICAL)
 @allure.suite('Аккаунт')
 @allure.title('Авторизация существующего пользователя с неверным паролем')
@@ -55,4 +52,4 @@ def test_log_in_unsuccessfully():
     app.home_page.log_in_modal.alert.confirm()
     app.home_page.log_in_modal.close()
 
-    app.home_page.menu.welcome_phrase.should(be.not_.visible)
+    app.home_page.menu.welcome_phrase_should_be_not_visible()

@@ -1,23 +1,12 @@
-from selene import have, be
+import allure
 from demoblaze_tests.data import products
-from demoblaze_tests.data.products import Product
 from demoblaze_tests.app import app
 from demoblaze_tests.data import users
-import allure
 from allure_commons.types import Severity
+from demoblaze_tests.utils import add_the_products_to_the_cart
 
 
-def add_the_products_to_the_cart(*products: Product):
-
-    for product in products:
-        app.home_page.open()
-        app.home_page.products.open_card(product.name)
-        app.product_card_page.add_to_the_card()
-
-    app.product_card_page.menu.go_home()
-
-
-@allure.tag('smoke')
+@allure.tag('web')
 @allure.severity(Severity.CRITICAL)
 @allure.suite('Корзина')
 @allure.title('Удаление товара из корзины')
@@ -29,10 +18,10 @@ def test_remove_a_product_from_the_cart():
     app.home_page.menu.open_cart()
     app.cart_page.cart.remove_product(laptop.name)
 
-    app.cart_page.cart.product(laptop.name).should(be.not_.visible)
+    app.cart_page.cart.product_should_be_removed(laptop.name)
 
 
-@allure.tag('smoke')
+@allure.tag('web')
 @allure.severity(Severity.CRITICAL)
 @allure.suite('Корзина')
 @allure.title('Оформление заказа')
@@ -54,6 +43,4 @@ def test_place_a_purchase_order():
     )
     app.cart_page.order_modal.confirm()
 
-    app.cart_page.order_modal.notification.title.should(
-        have.text('Thank you for your purchase!')
-    )
+    app.cart_page.order_modal.notification.should_have_successful_message()

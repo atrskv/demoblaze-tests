@@ -1,11 +1,10 @@
 import allure
-from selene import have
 from demoblaze_tests.data import products
 from demoblaze_tests.app import app
 from allure_commons.types import Severity
 
 
-@allure.tag('smoke')
+@allure.tag('web')
 @allure.severity(Severity.CRITICAL)
 @allure.suite('Товары')
 @allure.title('Добавление товара в корзину')
@@ -18,22 +17,16 @@ def test_add_a_product_to_the_cart():
     app.product_card_page.add_to_the_card()
     app.product_card_page.menu.open_cart()
 
-    app.cart_page.cart.name_of_added_product.should(
-        have.exact_text(phone.name)
-    )
+    app.cart_page.cart.product_should_be_added(phone.name)
 
 
-@allure.tag('smoke')
+@allure.tag('web')
 @allure.severity(Severity.CRITICAL)
 @allure.suite('Товары')
 @allure.title('Фильтрация товаров по мониторам')
 def test_filter_the_products_by_monitors_category():
 
-    monitor = products.monitor
-
     app.home_page.open()
     app.home_page.products.categories.sort_by_monitors()
 
-    app.home_page.products.cards.should(have.size(2)).second.should(
-        have.exact_text(monitor.name)
-    )
+    app.home_page.products.should_have_sorted_by_monitors()

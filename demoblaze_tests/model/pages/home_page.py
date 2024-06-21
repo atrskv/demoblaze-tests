@@ -1,3 +1,4 @@
+import allure
 from demoblaze_tests.model.components.menu import Menu
 from demoblaze_tests.model.components.modal_content import (
     SignUpModal,
@@ -17,5 +18,6 @@ class HomePage:
         self.log_in_modal = LogInModal(s('#logInModal'))
         self.products = Products(s('#tbodyid'))
 
+    @allure.step('Открыть стартовую страницу сайта')
     def open(self):
         browser.open('/')

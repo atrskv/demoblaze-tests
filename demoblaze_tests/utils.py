@@ -1,11 +1,13 @@
 import random
 import string
-from selene import browser
+from selene import browser, have
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 import os
 import allure
 from allure_commons.types import AttachmentType
+from selene.support.shared.jquery_style import s
+from demoblaze_tests.data.products import Product
 
 
 def random_string(length):
@@ -16,6 +18,22 @@ def random_string(length):
 def wait_until_alert_is_present():
     wait = WebDriverWait(browser.driver, 4)
     wait.until(expected_conditions.alert_is_present())
+
+
+def add_the_products_to_the_cart(*products: Product):
+
+    for product in products:
+        browser.open('https://www.demoblaze.com')
+
+        s('#tbodyid').ss('.card-title').element_by(
+            have.exact_text(product.name)
+        ).click()
+        s('.product-content').s('.btn-success').click()
+
+        wait_until_alert_is_present()
+        browser.driver.switch_to.alert.accept()
+
+    s('.navbar-nav').ss('.nav-item').element_by(have.text('Home')).click()
 
 
 def add_screenshot(browser):

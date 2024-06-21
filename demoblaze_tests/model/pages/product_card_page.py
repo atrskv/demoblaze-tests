@@ -1,3 +1,4 @@
+import allure
 from selene.support.shared.jquery_style import s
 from selene import browser
 from demoblaze_tests.model.components.menu import Menu
@@ -8,6 +9,7 @@ class ProductCardPage:
     def __init__(self):
         self.menu = Menu()
 
+    @allure.step('В карточке товара нажать на кнопку "Add to cart"')
     def add_to_the_card(self):
         s('.product-content').s('.btn-success').click()
 
