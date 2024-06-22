@@ -24,9 +24,11 @@
 ## Карта функциональных возможностей
 
 ```mermaid
+    %%{init: {'theme':'dark'}}%%
         flowchart TD
+            
         
-        demoblaze(((Demoblaze))) --> products(Товары)
+        demoblaze[/Demoblaze/] --> products(Товары)
         
         products --> view(Просмотреть)
         
@@ -85,16 +87,7 @@
 ```
 
 ## Используемые инструменты
-<img title="Python" src="resources/icons/python.svg" height="30" width="30"/> 
-<img title="Jenkins" src="resources/icons/selene.png" height="30" width="30"/>
-<img title="Jenkins" src="resources/icons/selenium.svg" height="40" width="40"/>
-<img title="Pytest" src="resources/icons/pytest.svg" height="40" width="40"/> 
-<img title="Allure Report" src="resources/icons/allure-report.png" height="40" width="40"/> 
-<img title="Selenoid" src="resources/icons/selenoid.png" height="40" width="40"/>
-<img title="Jenkins" src="resources/icons/jenkins.svg" height="40" width="40"/> 
-<img title="GitHub" src="resources/icons/github.svg" height="40" width="40"/> 
-<img title="Pycharm" src="resources/icons/pycharm.png" height="40" width="40"/> 
-<img title="Telegram" src="resources/icons/telegram.png" height="40" width="40"/> 
+<img title="Python" src="resources/icons/python.svg" height="30" width="30"/> <img title="Jenkins" src="resources/icons/selene.png" height="30" width="30"/>  <img title="Pytest" src="resources/icons/pytest.svg" height="40" width="40"/> <img title="Allure Report" src="resources/icons/allure-report.png" height="40" width="40"/> <img title="Selenoid" src="resources/icons/selenoid.png" height="40" width="40"/> <img title="Jenkins" src="resources/icons/jenkins.svg" height="40" width="40"/> <img title="GitHub" src="resources/icons/github.svg" height="40" width="40"/> <img title="Pycharm" src="resources/icons/pycharm.png" height="40" width="40"/> <img title="Telegram" src="resources/icons/telegram.png" height="40" width="40"/> 
 
 ## Запуск
 
@@ -173,8 +166,6 @@ allure serve allure-results/
 
 <img src="resources/allure-report-remote.gif">
 
-</details>
-
 Если тест-кейсы запускались через Jenkins, то в чат telegram'а придёт письмо с результатами:
 
 <img src="resources/telegram-notification.png">
@@ -182,6 +173,9 @@ allure serve allure-results/
 А в Allure report'е можно будет посмотреть видео прохождения тест-кейсов:
 
 <img src="resources/selenoid-video-attach.gif">
+
+
+</details>
 
 
 ## Ветви проекта
