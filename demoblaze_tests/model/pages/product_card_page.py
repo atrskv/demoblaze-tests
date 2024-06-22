@@ -10,7 +10,7 @@ class ProductCardPage:
         self.menu = Menu()
 
     @allure.step('В карточке товара нажать на кнопку "Add to cart"')
-    def add_to_the_card(self):
+    def add_to_the_cart(self):
         s('.product-content').s('.btn-success').click()
 
         wait_until_alert_is_present()
