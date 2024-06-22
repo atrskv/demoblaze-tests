@@ -167,15 +167,16 @@ allure serve allure-results/
 
 <details><summary>Удалённо</summary>
 
-<br>Идентичный отчёт можно посмотреть в Jenkins:
+<br>[Отчёт можно посмотреть в Jenkins](https://jenkins.autotests.cloud/job/13-telegram_torsukov-unit14/10/allure/):
 
 <img src="resources/allure-report-remote.gif">
 
-<br>Если тест-кейсы запускались через Jenkins, то в чат telegram'а придёт письмо с результатами:
+<br>Если тест-кейсы запускались [через Jenkins](https://jenkins.autotests.cloud/job/13-telegram_torsukov-unit14/build?delay=0sec), то в чат telegram'а придёт письмо с результатами:
 
 <img src="resources/telegram-notification.png">
 
-А в Allure report'е можно будет посмотреть видео прохождения тест-кейсов:
+А в [отчёте](https://jenkins.autotests.cloud/job/13-telegram_torsukov-unit14/10/allure/) можно будет посмотреть видео прохождения тест-кейсов:
+<br>
 
 <img src="resources/selenoid-video-attach.gif">
 
