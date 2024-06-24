@@ -48,4 +48,4 @@ def test_log_in_unsuccessfully(log_in):
     app.home_page.log_in_modal.alert.confirm()
     app.home_page.log_in_modal.close()
 
-    app.home_page.menu.welcome_phrase_should_be_not_visible(user.login)
+    app.home_page.menu.welcome_phrase_should_have_no_exact_text(user.login)

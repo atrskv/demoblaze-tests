@@ -43,5 +43,5 @@ class Menu:
     @allure.step(
         'Пользователь не авторизован, в верхнем меню навигации не отображается: "Welcome {value}"'
     )
-    def welcome_phrase_should_be_not_visible(self, value: str):
+    def welcome_phrase_should_have_no_exact_text(self, value: str):
         s('#nameofuser').should(have.no.exact_text(f'Welcome {value}'))
