@@ -13,7 +13,7 @@ def test_register_an_user_successfully():
     user = users.user_with_random_credentials
 
     app.home_page.open()
-    app.home_page.menu.sign_up()
+    app.home_page.menu.select_sign_up()
     app.home_page.sign_up_modal.fill(user.login, user.password)
     app.home_page.sign_up_modal.confirm()
     app.home_page.sign_up_modal.alert.confirm()
@@ -25,14 +25,12 @@ def test_register_an_user_successfully():
 @allure.severity(Severity.CRITICAL)
 @allure.suite('Аккаунт')
 @allure.title('Авторизация существующего пользователя')
-def test_log_in_using_an_existing_user_account():
+def test_log_in_using_an_existing_user_account(log_in):
 
     user = users.existing_user
 
     app.home_page.open()
-    app.home_page.menu.log_in()
-    app.home_page.log_in_modal.fill(user.login, user.password)
-    app.home_page.log_in_modal.confirm()
+    log_in(user.login, user.password)
 
     app.home_page.menu.welcome_phrase_should_have_exact_text(user.login)
 
@@ -41,15 +39,13 @@ def test_log_in_using_an_existing_user_account():
 @allure.severity(Severity.CRITICAL)
 @allure.suite('Аккаунт')
 @allure.title('Авторизация существующего пользователя с неверным паролем')
-def test_log_in_unsuccessfully():
+def test_log_in_unsuccessfully(log_in):
 
     user = users.existing_user
 
     app.home_page.open()
-    app.home_page.menu.log_in()
-    app.home_page.log_in_modal.fill(user.login, password='invalid password')
-    app.home_page.log_in_modal.confirm()
+    log_in(user.login, password='invalid password')
     app.home_page.log_in_modal.alert.confirm()
     app.home_page.log_in_modal.close()
 
-    app.home_page.menu.welcome_phrase_should_be_not_visible()
+    app.home_page.menu.welcome_phrase_should_be_not_visible(user.login)

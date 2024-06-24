@@ -1,6 +1,8 @@
 import pytest
 from selene import browser
 from selenium.webdriver.chrome.options import Options
+
+from demoblaze_tests.app import app
 from demoblaze_tests.utils import (
     add_logs,
     add_screenshot,
@@ -43,12 +45,12 @@ def browser_management_remote():
 
     configure_browser(options)
 
-    yield browser
+    yield
 
-    add_screenshot(browser)
-    add_logs(browser)
-    add_html(browser)
-    add_video(browser)
+    add_screenshot()
+    add_logs()
+    add_html()
+    add_video()
 
     browser.quit()
 
@@ -58,11 +60,11 @@ def browser_management_local():
     options = Options()
     configure_browser(options)
 
-    yield browser
+    yield
 
-    add_screenshot(browser)
-    add_logs(browser)
-    add_html(browser)
+    add_screenshot()
+    add_logs()
+    add_html()
 
     browser.quit()
 
@@ -83,3 +85,13 @@ def browser_management(request):
         request.getfixturevalue('browser_management_remote')
     else:
         request.getfixturevalue('browser_management_local')
+
+
+@pytest.fixture(scope='function')
+def log_in():
+    def _log_in(username, password):
+        app.home_page.menu.select_log_in()
+        app.home_page.log_in_modal.fill(username, password)
+        app.home_page.log_in_modal.confirm()
+
+    return _log_in

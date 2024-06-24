@@ -15,7 +15,7 @@ def test_remove_a_product_from_the_cart():
     phone, laptop = products.phone, products.laptop
     add_the_products_to_the_cart(phone, laptop)
 
-    app.home_page.menu.open_cart()
+    app.home_page.menu.select_cart()
     app.cart_page.cart.remove_product(laptop.name)
 
     app.cart_page.cart.product_should_be_removed(laptop.name)
@@ -31,7 +31,7 @@ def test_place_a_purchase_order():
     user = users.existing_user
     add_the_products_to_the_cart(phone, laptop)
 
-    app.home_page.menu.open_cart()
+    app.home_page.menu.select_cart()
     app.cart_page.place_order()
     app.cart_page.order_modal.fill(
         user.name,

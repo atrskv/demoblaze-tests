@@ -15,7 +15,7 @@ def test_add_a_product_to_the_cart():
     app.home_page.open()
     app.home_page.products.open_card(phone.name)
     app.product_card_page.add_to_the_cart()
-    app.product_card_page.menu.open_cart()
+    app.product_card_page.menu.select_cart()
 
     app.cart_page.cart.product_should_be_added(phone.name)
 

@@ -23,7 +23,7 @@ def wait_until_alert_is_present():
 def add_the_products_to_the_cart(*products: Product):
 
     for product in products:
-        browser.open('https://www.demoblaze.com')
+        browser.open('/')
 
         s('#tbodyid').ss('.card-title').element_by(
             have.exact_text(product.name)
@@ -36,7 +36,7 @@ def add_the_products_to_the_cart(*products: Product):
     s('.navbar-nav').ss('.nav-item').element_by(have.text('Home')).click()
 
 
-def add_screenshot(browser):
+def add_screenshot():
     png = browser.driver.get_screenshot_as_png()
     allure.attach(
         body=png,
@@ -46,19 +46,19 @@ def add_screenshot(browser):
     )
 
 
-def add_logs(browser):
+def add_logs():
     log = "".join(
         f'{text}\n' for text in browser.driver.get_log(log_type='browser')
     )
     allure.attach(log, 'browser_logs', AttachmentType.TEXT, '.log')
 
 
-def add_html(browser):
+def add_html():
     html = browser.driver.page_source
     allure.attach(html, 'page_source', AttachmentType.HTML, '.html')
 
 
-def add_video(browser):
+def add_video():
     video_url = (
         f"https://{os.getenv('SELENOID_URL')}/video/"
         + browser.driver.session_id

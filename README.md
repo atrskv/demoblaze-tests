@@ -1,7 +1,7 @@
 <p align="center">
-  <a href="https://www.medusajs.com">
+  <a href="https://demoblaze.com">
   <picture>
-<img alt="Medusa logo" src="https://demoblaze.com/favicon.ico" width="70" height="70">
+<img alt="Demoblaze" src="https://demoblaze.com/favicon.ico" width="70" height="70">
     </picture>
   </a>
 </p>
@@ -13,11 +13,11 @@
 Тест-кейсы для веб-приложения по онлайн-покупке электроники
 </p>
 <p align="center">
-  <a href="https://python-poetry.org">
-    <img src="https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json" alt="Medusa is released under the MIT license." />
+  <a href="https://python-poetry.org/">
+    <img src="https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json" />
   </a>
   <a href="https://github.com/psf/black">
-    <img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="PRs welcome!" />
+    <img src="https://img.shields.io/badge/code%20style-black-000000.svg" />
   </a>
 </p>
 
@@ -31,7 +31,6 @@
 <br>
 
 ```mermaid
-    %%{init: {'theme':'dark'}}%%
         flowchart TD
             
         
@@ -190,7 +189,6 @@ allure serve allure-results/
 <br>
 
 ```mermaid
-    %%{init: {'theme':'dark'}}%%
 gitGraph
    commit id: "Initial commit"
    branch develop
