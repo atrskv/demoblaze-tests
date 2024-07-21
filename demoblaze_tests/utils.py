@@ -1,39 +1,40 @@
-import random
-import string
-from selene import browser, have
+from selene import browser
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 import os
 import allure
 from allure_commons.types import AttachmentType
-from selene.support.shared.jquery_style import s
-from demoblaze_tests.data.products import Product
+import demoblaze_tests
+from pathlib import Path
+
+# from demoblaze_tests.data.products import Product
 
 
-def random_string(length):
-    letters = string.ascii_letters
-    return ''.join(random.choice(letters) for _ in range(length))
+def path(file) -> str:
+
+    return str(Path(demoblaze_tests.__file__).parent.parent.joinpath(file))
 
 
 def wait_until_alert_is_present():
+
     wait = WebDriverWait(browser.driver, 4)
     wait.until(expected_conditions.alert_is_present())
 
 
-def add_the_products_to_the_cart(*products: Product):
-
-    for product in products:
-        browser.open('/')
-
-        s('#tbodyid').ss('.card-title').element_by(
-            have.exact_text(product.name)
-        ).click()
-        s('.product-content').s('.btn-success').click()
-
-        wait_until_alert_is_present()
-        browser.driver.switch_to.alert.accept()
-
-    s('.navbar-nav').ss('.nav-item').element_by(have.text('Home')).click()
+# def add_the_products_to_the_cart(*products: Product):
+#
+#     for product in products:
+#         browser.open('/')
+#
+#         s('#tbodyid').ss('.card-title').element_by(
+#             have.exact_text(product.name)
+#         ).click()
+#         s('.product-content').s('.btn-success').click()
+#
+#         wait_until_alert_is_present()
+#         browser.driver.switch_to.alert.accept()
+#
+#     s('.navbar-nav').ss('.nav-item').element_by(have.text('Home')).click()
 
 
 def add_screenshot():

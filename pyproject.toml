@@ -12,6 +12,7 @@ pytest = "^8.2.2"
 black = "^24.4.2"
 python-dotenv = "^1.0.1"
 allure-pytest = "^2.13.5"
+mimesis = "^17.0.0"
 
 [tool.black]
 line-length = 79
