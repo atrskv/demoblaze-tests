@@ -12,10 +12,9 @@
 <p align="center">
 Тест-кейсы для веб-приложения по онлайн-покупке электроники
 </p>
-<p align="center"> <b>
-Используемые инструменты:</b></p>
+
 <p align="center">
-<img title="Python" src="resources/icons/python.svg" height="30" width="30"/> <img title="Selene" src="resources/icons/selene.png" height="30" width="30"/>  <img title="Pytest" src="resources/icons/pytest.svg" height="30" width="30"/> <img title="Allure Report" src="resources/icons/allure-report.png" height="30" width="30"/> <img title="Allure TestOps" src="resources/icons/allure-testops.png" height="30" width="30"/> <img title="Selenoid" src="resources/icons/selenoid.png" height="30" width="30"/> <img title="Jenkins" src="resources/icons/jenkins.svg" height="30" width="30"/> <img title="GitHub" src="resources/icons/github.svg" height="30" width="30"/> <img title="Pycharm" src="resources/icons/pycharm.png" height="30" width="30"/> <img title="Telegram" src="resources/icons/telegram.png" height="30" width="30"/> <img title="Jira" src="resources/icons/jira.png" height="30" width="30"/> <img title="Requests" src="resources/icons/requests.png" height="30" width="30"/> <img title="Mimesis" src="resources/icons/mimesis.svg" height="30" width="30"/> <img title="Pydantic" src="resources/icons/pydantic.svg" height="30" width="30"/>
+<img title="Python" src="resources/icons/python.svg" height="30" width="30"/> <img title="Selene" src="resources/icons/selene.png" height="30" width="30"/>  <img title="Pytest" src="resources/icons/pytest.svg" height="30" width="30"/> <img title="Allure Report" src="resources/icons/allure-report.png" height="30" width="30"/> <img title="Allure TestOps" src="resources/icons/allure-testops.png" height="30" width="30"/> <img title="Selenoid" src="resources/icons/selenoid.png" height="30" width="30"/> <img title="Jenkins" src="resources/icons/jenkins.svg" height="30" width="30"/> <img title="GitHub" src="resources/icons/github.svg" height="30" width="30"/> <img title="Pycharm" src="resources/icons/pycharm.png" height="30" width="30"/> <img title="Telegram" src="resources/icons/telegram.png" height="30" width="30"/> <img title="Jira" src="resources/icons/jira.png" height="30" width="30"/> <img title="Requests" src="resources/icons/requests.png" height="30" width="30"/> <img title="Mimesis" src="resources/icons/mimesis.svg" height="30" width="30"/> <img title="Pydantic" src="resources/icons/pydantic.svg" height="30" width="30"/> <img title="Python" src="resources/icons/black.png" height="30" width="30"/> <img title="Python" src="resources/icons/poetry.png" height="30" width="30"/>
 </p>
 
 ## Структура проекта
@@ -23,32 +22,32 @@
 <details><summary>Диаграмма</summary>
 <br>
 
-```mermaid
-        flowchart LR
-            
-        demoblaze --> tests(tests)
+```
 
-        demoblaze{{demoblaze-tests}} --> demoblaze_tests(demoblaze_tests)
-        demoblaze_tests --> app(app.py)  
+demoblaze-tests/
+├─ tests/
+├─ demoblaze_tests/
+│  ├─ app.py
+│  ├─ model/
+│  │  ├─ pages/
+│  │  ├─ components/
+│  │  ├─ client.py
+│  ├─ data/
+│  │  ├─ files/
+│  │  ├─ ...
+├─ settings.py
+├─ config.*.env
+├─ pyproject.toml
+├─ poetry.lock
+├─ .gitignore
+├─ resources/
+│  ├─ icons/
+│  ├─ ...
+├─ .gitignore
+├─ README.md
 
-        model --> pages(pages)
-        demoblaze_tests --> model(model) --> components(components)
-        demoblaze_tests --> data(data) --> files(files)
-        data --> other_data(...)
-        model --> client(client.py)
-        demoblaze_tests --> utils(utils.py)
-        
-        demoblaze --> settings(settings.py)
-        demoblaze --> config(.config.*.env)
-        demoblaze --> pyproject(pyproject.toml)
-        demoblaze --> poetry(poetry.lock)
 
-        demoblaze --> gitignore(.gitignore)
-        
-        demoblaze --> resources(resources) --> icons(icons)
-        resources --> other_resources(...)
 
-        demoblaze --> readme(README.md)
 ```
 </details>
 
