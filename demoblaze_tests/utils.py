@@ -1,77 +1,68 @@
-import random
-import string
-from selene import browser, have
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.ui import WebDriverWait
-import os
-import allure
+import logging
+from requests import Response
+from selene import browser
 from allure_commons.types import AttachmentType
-from selene.support.shared.jquery_style import s
-from demoblaze_tests.data.products import Product
+import allure
+import settings
+import demoblaze_tests
+from pathlib import Path
 
 
-def random_string(length):
-    letters = string.ascii_letters
-    return ''.join(random.choice(letters) for _ in range(length))
-
-
-def wait_until_alert_is_present():
-    wait = WebDriverWait(browser.driver, 4)
-    wait.until(expected_conditions.alert_is_present())
-
-
-def add_the_products_to_the_cart(*products: Product):
-
-    for product in products:
-        browser.open('/')
-
-        s('#tbodyid').ss('.card-title').element_by(
-            have.exact_text(product.name)
-        ).click()
-        s('.product-content').s('.btn-success').click()
-
-        wait_until_alert_is_present()
-        browser.driver.switch_to.alert.accept()
-
-    s('.navbar-nav').ss('.nav-item').element_by(have.text('Home')).click()
+def path(file) -> str:
+    return str(Path(demoblaze_tests.__file__).parent.parent.joinpath(file))
 
 
 def add_screenshot():
     png = browser.driver.get_screenshot_as_png()
     allure.attach(
         body=png,
-        name='screenshot',
+        name='Screenshot',
         attachment_type=AttachmentType.PNG,
         extension='.png',
     )
 
 
-def add_logs():
-    log = "".join(
+def add_browser_logs():
+    log = ''.join(
         f'{text}\n' for text in browser.driver.get_log(log_type='browser')
     )
-    allure.attach(log, 'browser_logs', AttachmentType.TEXT, '.log')
+    allure.attach(log, 'Browser logs', AttachmentType.TEXT, '.log')
 
 
 def add_html():
     html = browser.driver.page_source
-    allure.attach(html, 'page_source', AttachmentType.HTML, '.html')
+    allure.attach(html, 'Page source', AttachmentType.HTML, '.html')
 
 
 def add_video():
     video_url = (
-        f"https://{os.getenv('SELENOID_URL')}/video/"
+        f'https://{settings.config.selenoid_url}/video/'
         + browser.driver.session_id
         + ".mp4"
     )
     html = (
-        "<html><body><video width='100%' height='100%' controls autoplay><source src='"
+        '<html><body><video width=\'100%\' height=\'100%\' controls autoplay><source src='
         + video_url
-        + "' type='video/mp4'></video></body></html>"
+        + ' type=\'video/mp4\'></video></body></html>'
     )
     allure.attach(
         html,
-        'video_' + browser.driver.session_id,
+        'Video. Session id: ' + browser.driver.session_id,
         AttachmentType.HTML,
         '.html',
     )
+
+
+def request_logs(response: Response):
+    logging.info('Request: ' + response.request.url)
+    logging.info('Request method: ' + response.request.method)
+    logging.info('Request headers: ' + str(response.request.headers))
+    if response.request.body:
+        logging.info('INFO Request body: ' + str(response.request.body))
+
+
+def response_logs(response: Response):
+    logging.info('Response code: ' + str(response.status_code))
+    logging.info('Response headers: ' + str(response.headers))
+    if response.text:
+        logging.info('INFO Response body: ' + response.text)

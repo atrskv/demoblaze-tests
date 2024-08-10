@@ -1,7 +1,5 @@
-import os
+from mimesis import Person, Address, Payment, Datetime
 from dataclasses import dataclass
-from demoblaze_tests.utils import random_string
-from dotenv import load_dotenv
 from typing import Optional
 
 
@@ -16,19 +14,19 @@ class User:
     month: Optional[str] = None
     year: Optional[str] = None
 
+    def __repr__(self) -> str:
+        return str(self.login)
 
-user_with_random_credentials = User(
-    login=random_string(10), password=random_string(10)
-)
 
-load_dotenv()
-existing_user = User(
-    login=os.getenv('LOGIN'),
-    password=os.getenv('PASSWORD'),
-    name=os.getenv('NAME'),
-    country=os.getenv('COUNTRY'),
-    city=os.getenv('CITY'),
-    credit_card=os.getenv('CREDIT_CARD'),
-    month=os.getenv('MONTH'),
-    year=os.getenv('YEAR'),
-)
+def generate() -> User:
+
+    return User(
+        login=Person().username(),
+        password=Person().password(),
+        name=Person().full_name(),
+        country=Address().country(),
+        city=Address().city(),
+        credit_card=Payment().credit_card_number(),
+        month=Datetime().month(),
+        year=str(Datetime().year()),
+    )

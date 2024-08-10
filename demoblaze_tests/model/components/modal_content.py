@@ -1,16 +1,28 @@
 import allure
 from selene.core.entity import Element
-from demoblaze_tests.utils import wait_until_alert_is_present
 from selene import browser, have
 from selene.support.shared.jquery_style import s
 
 
 class Alert:
 
-    @allure.step('Подтвердить действие в предупреждении ')
-    def confirm(self):
-        wait_until_alert_is_present()
-        browser.driver.switch_to.alert.accept()
+    @property
+    def _alert(self):
+        return browser.wait.for_(lambda driver: browser.driver.switch_to.alert)
+
+    def accept(self):
+        self._alert.accept()
+
+    @allure.step('Уведомление должно содержать текст: {expected}')
+    def should_have_exact_text(self, expected):
+        actual = self._alert.text
+
+        if actual != expected:
+            raise AssertionError(
+                f'alert text was wrong:'
+                f'\texpected: {expected}'
+                f'\t  actual: {actual}'
+            )
 
 
 class Notification:
@@ -18,7 +30,7 @@ class Notification:
         self.notification = s('.sweet-alert')
 
     @allure.step(
-        'Заказ оформлен, пользователь видит уведомление: "Thank you for your purchase!"'
+        'Пользователь видит уведомление: \'Thank you for your purchase!\''
     )
     def should_have_successful_message(self):
         self.notification.s('h2').should(
@@ -44,18 +56,18 @@ class Modal:
         self._modal.s('.close').click()
 
     @property
+    def data(self):
+        return self._modal
+
+    @property
     def alert(self):
         return self._alert
-
-    @allure.step('Пользователь зарегистрирован, модальное окно закрыто')
-    def user_data_should_be_not_visible(self):
-        return self._modal
 
 
 class SignUpModal(Modal):
 
     @allure.step(
-        'В модальном окне заполнить текстовое поле "Username" и "Password"'
+        'В модальном окне заполнить текстовые поля \'Username\' и \'Password\''
     )
     def fill(self, username: str, password: str):
         self._modal.s('#sign-username').type(username)
@@ -65,10 +77,10 @@ class SignUpModal(Modal):
 class LogInModal(Modal):
 
     @allure.step(
-        'В модальном окне заполнить текстовое поле "Username" и "Password"'
+        'В модальном окне заполнить текстовые поля \'Username\' и \'Password\''
     )
-    def fill(self, username: str, password: str):
-        self._modal.s('#loginusername').type(username)
+    def fill(self, login: str, password: str):
+        self._modal.s('#loginusername').type(login)
         self._modal.s('#loginpassword').type(password)
 
 
@@ -78,7 +90,13 @@ class OrderModal(Modal):
         self.notification = Notification()
 
     @allure.step(
-        'В модальном окне заполнить текстовые поля: "Name", "Country", "City", "Credit card", "Month", "Year"'
+        'В модальном окне заполнить текстовые поля: '
+        '\'Name\', '
+        '\'Country\', '
+        '\'City\', '
+        '\'Credit card\', '
+        '\'Month\' и '
+        '\'Year\''
     )
     def fill(
         self,

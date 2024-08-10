@@ -12,15 +12,24 @@ pytest = "^8.2.2"
 black = "^24.4.2"
 python-dotenv = "^1.0.1"
 allure-pytest = "^2.13.5"
+mimesis = "^17.0.0"
+requests = "^2.32.3"
+pydantic-settings = "^2.4.0"
+webdriver-manager = "^4.0.2"
 
 [tool.black]
 line-length = 79
 skip-string-normalization = 1
 
 [tool.pytest.ini_options]
+log_date_format = "%Y-%m-%d %H:%M:%S"
+log_format = "%(asctime)s %(levelname)s %(message)s"
+log_cli_level = "INFO"
+log_cli = true
+
 addopts = [
-    '--clean-alluredir',
-    '--alluredir=allure-results'
+    "--clean-alluredir",
+    "--alluredir=allure-results"
 ]
 
 [build-system]
