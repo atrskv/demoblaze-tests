@@ -1,51 +1,45 @@
-from demoblaze_tests.data import users
 from demoblaze_tests.app import app
-import allure
 from allure_commons.types import Severity
+from demoblaze_tests.utils import allure
 
 
-@allure.tag('web')
 @allure.severity(Severity.CRITICAL)
 @allure.suite('Аккаунт')
 @allure.title('Регистрация нового пользователя')
-def test_register_an_user_successfully():
+def test_sign_up_a_new_user_successfully(given_generated_user):
 
-    user = users.user_with_random_credentials
+    user = given_generated_user
 
     app.home_page.open()
-    app.home_page.menu.select_sign_up()
-    app.home_page.sign_up_modal.fill(user.login, user.password)
-    app.home_page.sign_up_modal.confirm()
-    app.home_page.sign_up_modal.alert.confirm()
+    app.home_page.account.sign_up(user)
 
-    app.home_page.sign_up_modal.user_data_should_be_not_visible()
+    app.home_page.account.user_should_be_signed_up()
 
 
-@allure.tag('web')
 @allure.severity(Severity.CRITICAL)
 @allure.suite('Аккаунт')
 @allure.title('Авторизация существующего пользователя')
-def test_log_in_using_an_existing_user_account(log_in):
+def test_log_in_using_an_existing_user_account(given_existing_user):
 
-    user = users.existing_user
+    user = given_existing_user
 
     app.home_page.open()
-    log_in(user.login, user.password)
+    app.home_page.account.log_in(user)
 
-    app.home_page.menu.welcome_phrase_should_have_exact_text(user.login)
+    app.home_page.account.should_be_logged_in(user)
 
 
-@allure.tag('web')
 @allure.severity(Severity.CRITICAL)
 @allure.suite('Аккаунт')
-@allure.title('Авторизация существующего пользователя с неверным паролем')
-def test_log_in_unsuccessfully(log_in):
+@allure.title('Авторизация существующего пользователя с неправильным паролем')
+def test_log_in_using_an_existing_user_account_with_wrong_password(
+    given_existing_user,
+):
 
-    user = users.existing_user
+    user = given_existing_user
+    user.password = 'wrong'
 
     app.home_page.open()
-    log_in(user.login, password='invalid password')
-    app.home_page.log_in_modal.alert.confirm()
-    app.home_page.log_in_modal.close()
+    app.home_page.account.log_in(user)
 
-    app.home_page.menu.welcome_phrase_should_be_not_visible(user.login)
+    app.home_page.account.should_be_not_logged_in(user)

@@ -4,9 +4,11 @@ from demoblaze_tests.model.pages.product_card_page import ProductCardPage
 
 
 class Application:
-    home_page = HomePage()
-    cart_page = CartPage()
-    product_card_page = ProductCardPage()
+
+    def __init__(self):
+        self.home_page = HomePage()
+        self.cart_page = CartPage()
+        self.product_card_page = ProductCardPage()
 
 
 app = Application()
