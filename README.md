@@ -12,22 +12,11 @@
 <p align="center">
 Тест-кейсы для веб-приложения по онлайн-покупке электроники
 </p>
+<p align="center"> <b><em>
+Используемые инструменты:</em></b></p>
 <p align="center">
-<a href="https://www.python.org/">
-  <img src="https://img.shields.io/badge/python-^3.12-blue" />
-</a>
-  <a href="https://python-poetry.org/">
-    <img src="https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json" />
-  </a>
-  <a href="https://github.com/psf/black">
-    <img src="https://img.shields.io/badge/code%20style-black-000000.svg" />
-  </a>
+<img title="Python" src="resources/icons/python.svg" height="30" width="30"/> <img title="Selene" src="resources/icons/selene.png" height="30" width="30"/>  <img title="Pytest" src="resources/icons/pytest.svg" height="30" width="30"/> <img title="Allure Report" src="resources/icons/allure-report.png" height="30" width="30"/> <img title="Allure TestOps" src="resources/icons/allure-testops.png" height="30" width="30"/> <img title="Selenoid" src="resources/icons/selenoid.png" height="30" width="30"/> <img title="Jenkins" src="resources/icons/jenkins.svg" height="30" width="30"/> <img title="GitHub" src="resources/icons/github.svg" height="30" width="30"/> <img title="Pycharm" src="resources/icons/pycharm.png" height="30" width="30"/> <img title="Telegram" src="resources/icons/telegram.png" height="30" width="30"/> <img title="Jira" src="resources/icons/jira.png" height="30" width="30"/> <img title="Requests" src="resources/icons/requests.png" height="30" width="30"/> <img title="Mimesis" src="resources/icons/mimesis.svg" height="30" width="30"/> <img title="Pydantic" src="resources/icons/pydantic.svg" height="30" width="30"/>
 </p>
-
-
-## Используемые инструменты
-<img title="Python" src="resources/icons/python.svg" height="30" width="30"/> <img title="Selene" src="resources/icons/selene.png" height="30" width="30"/>  <img title="Pytest" src="resources/icons/pytest.svg" height="30" width="30"/> <img title="Allure Report" src="resources/icons/allure-report.png" height="30" width="30"/> <img title="Allure TestOps" src="resources/icons/allure-testops.png" height="30" width="30"/> <img title="Selenoid" src="resources/icons/selenoid.png" height="30" width="30"/> <img title="Jenkins" src="resources/icons/jenkins.svg" height="30" width="30"/> <img title="GitHub" src="resources/icons/github.svg" height="30" width="30"/> <img title="Pycharm" src="resources/icons/pycharm.png" height="30" width="30"/> <img title="Telegram" src="resources/icons/telegram.png" height="30" width="30"/> <img title="Jira" src="resources/icons/jira.png" height="30" width="30"/> <img title="Requests" src="resources/icons/requests.png" height="30" width="30"/> <img title="Mimesis" src="resources/icons/mimesis.svg" height="30" width="30"/> <img title="Pydantic" src="resources/icons/pydantic.svg" height="30" width="30"/> 
-
 
 ## Структура проекта
 
