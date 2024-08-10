@@ -12,6 +12,7 @@ class Config(BaseSettings):
     api_url: str = 'https://api.demoblaze.com'
 
     driver_name: str = 'chrome'
+    driver_version: str = '122.0'
 
     window_width: int = 1920
     window_height: int = 1080

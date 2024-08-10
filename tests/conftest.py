@@ -30,6 +30,7 @@ def given_browser_management():
 
             selenoid_capabilities = {
                 'browserName': settings.config.driver_name,
+                'browserVersion': settings.config.driver_version,
                 'selenoid:options': {'enableVNC': True, 'enableVideo': True},
             }
 
