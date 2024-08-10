@@ -13,6 +13,9 @@
 Тест-кейсы для веб-приложения по онлайн-покупке электроники
 </p>
 <p align="center">
+<a href="https://www.python.org/">
+  <img src="https://img.shields.io/badge/python-^3.12-blue" />
+</a>
   <a href="https://python-poetry.org/">
     <img src="https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json" />
   </a>
@@ -21,83 +24,48 @@
   </a>
 </p>
 
+
 ## Используемые инструменты
-<img title="Python" src="resources/icons/python.svg" height="30" width="30"/> <img title="Jenkins" src="resources/icons/selene.png" height="30" width="30"/>  <img title="Pytest" src="resources/icons/pytest.svg" height="40" width="40"/> <img title="Allure Report" src="resources/icons/allure-report.png" height="40" width="40"/> <img title="Selenoid" src="resources/icons/selenoid.png" height="40" width="40"/> <img title="Jenkins" src="resources/icons/jenkins.svg" height="40" width="40"/> <img title="GitHub" src="resources/icons/github.svg" height="40" width="40"/> <img title="Pycharm" src="resources/icons/pycharm.png" height="40" width="40"/> <img title="Telegram" src="resources/icons/telegram.png" height="40" width="40"/> 
+<img title="Python" src="resources/icons/python.svg" height="30" width="30"/> <img title="Selene" src="resources/icons/selene.png" height="30" width="30"/>  <img title="Pytest" src="resources/icons/pytest.svg" height="30" width="30"/> <img title="Allure Report" src="resources/icons/allure-report.png" height="30" width="30"/> <img title="Allure TestOps" src="resources/icons/allure-testops.png" height="30" width="30"/> <img title="Selenoid" src="resources/icons/selenoid.png" height="30" width="30"/> <img title="Jenkins" src="resources/icons/jenkins.svg" height="30" width="30"/> <img title="GitHub" src="resources/icons/github.svg" height="30" width="30"/> <img title="Pycharm" src="resources/icons/pycharm.png" height="30" width="30"/> <img title="Telegram" src="resources/icons/telegram.png" height="30" width="30"/> <img title="Jira" src="resources/icons/jira.png" height="30" width="30"/> <img title="Requests" src="resources/icons/requests.png" height="30" width="30"/> <img title="Mimesis" src="resources/icons/mimesis.svg" height="30" width="30"/> <img title="Pydantic" src="resources/icons/pydantic.svg" height="30" width="30"/> 
 
 
-## Карта функциональных возможностей
+## Структура проекта
 
 <details><summary>Диаграмма</summary>
 <br>
 
 ```mermaid
-        flowchart TD
+        flowchart LR
             
-        
-        demoblaze[/Demoblaze/] --> products(Товары)
-        
-        products --> view(Просмотреть)
-        
-        view --> categories(Категории)
-        
-        categories --> phones(Телефоны)
-        categories --> laptops(Ноутбуки)
-        categories --> monitors(Мониторы)
+        demoblaze --> tests(tests)
 
-        products --> add(Добавить в корзину) 
+        demoblaze{{demoblaze-tests}} --> demoblaze_tests(demoblaze_tests)
+        demoblaze_tests --> app(app.py)  
 
-        demoblaze --> cart(Корзина)
+        model --> pages(pages)
+        demoblaze_tests --> model(model) --> components(components)
+        demoblaze_tests --> data(data) --> files(files)
+        data --> other_data(...)
+        model --> client(client.py)
+        demoblaze_tests --> utils(utils.py)
         
-        cart --> order(Оформить заказ)
-        
-        order --> name(Имя)
-        order --> country(Страна)
-        order --> city(Город)
-        order --> creditCard(Кредитная карта)
-        order --> month(Месяц)
-        order --> year(Год)
-        
-        cart -->  remove(Удалить товар)
-        
-        demoblaze --> contacts(Контакты)
-        
-        contacts --> support(Отправить сообщение в тех. поддержку)
-        
-        support --> email(Контактная эл. почта)
-        support --> contactName(Контакное имя)
-        support --> message(Сообщение)
-        
-        account --> logIn(Авторизоваться)
-        
-        logIn --> userNameForLogIn(Имя пользователя)
-        
-        userNameForLogIn -->existingUserName(Существующее)
-        userNameForLogIn -->notExistingUserName(Несуществующее)
-        
-        logIn --> passwordForLogIn(Пароль)
-        
-        passwordForLogIn --> validPassword(Валидный)
-        passwordForLogIn --> inValidPassword(Невалидный)
-        
-        demoblaze --> account(Аккаунт)
-        
-        account --> signUp(Зарегистрироваться)
-        signUp --> userName(Имя пользователя)
-        signUp --> password(Пароль)
+        demoblaze --> settings(settings.py)
+        demoblaze --> config(.config.*.env)
+        demoblaze --> pyproject(pyproject.toml)
+        demoblaze --> poetry(poetry.lock)
 
-        click Demoblaze "https://www.demoblaze.com" _blank
-        click Account "https://github.com/lrayne/demoblaze-tests/blob/develop/tests/test_account.py" _blank
-        click Products "https://github.com/lrayne/demoblaze-tests/blob/develop/tests/test_products.py" _blank
-        click Cart "https://github.com/lrayne/demoblaze-tests/blob/develop/tests/test_cart.py" _blank
+        demoblaze --> gitignore(.gitignore)
+        
+        demoblaze --> resources(resources) --> icons(icons)
+        resources --> other_resources(...)
 
+        demoblaze --> readme(README.md)
 ```
 </details>
 
 ## Запуск
 
-<details><summary>Локально</summary>
-
-<br>1. Склонировать репозиторий:
+1. Склонировать репозиторий:
 
 ```
 git clone https://github.com/lrayne/demoblaze-tests.git
@@ -108,49 +76,46 @@ git clone https://github.com/lrayne/demoblaze-tests.git
 ```
 poetry install
 ```
+3. Открыть проект в PyCharm, настроить интерпретатор
 
-3. Создать `.env` в корне проекта *(см. `.env.example`)*, внутри него указать:
+4. Скопировать содержимое из `config.*.env.example` в `config.*.env`, где `*` — `local` или `remote`
+5. Поместить `config.*.env` в корень проекта 
+6. При необходимости изменить значения у параметров в `config.*.env`
 
-- **LOGIN** и **PASSWORD** — данные от аккаунта существующего пользователя на [Demoblaze](https://www.demoblaze.com) *(используются в тест-кейсе авторизации)*
-- **NAME**, **COUNTRY**, **CITY**, **CREDIT_CARD**, **MONTH**, **YEAR** — данные, необходимые для оформления заказа
-
-4. Запустить тесты:
-
-```
-pytest . --mode=local
-```
-</details>
-
-<details><summary>Удалённо</summary>
-
-<br>1. Склонировать репозиторий:
+7. Запустить тест-кейсы, исходя из выбранного контекста:
 
 ```
-git clone https://github.com/lrayne/demoblaze-tests.git
+context='local' pytest tests/
 ```
 
-2. Установить зависимости:
-
 ```
-poetry install
+context='remote' pytest tests/
 ```
 
-3. Создать `.env` в корне проекта *(см. `.env.example`)*, внутри него указать:
 
-- **LOGIN** и **PASSWORD** — данные от аккаунта существующего пользователя на [Demoblaze](https://www.demoblaze.com) *(используются в тест-кейсе авторизации)*
-- **NAME**, **COUNTRY**, **CITY**, **CREDIT_CARD**, **MONTH**, **YEAR** — данные, необходимые для оформления заказа
-- **SELENOID_LOGIN**, **SELENOID_PASS**, **SELENOID_URL** — учетные данные и URL для удаленного запуска
+## <img title="Jenkins" src="resources/icons/jenkins.svg" height="30" width="30"/> Jenkins
 
-4. Запустить тесты:
-```
-pytest . --mode=remote
-```
+[![Button](https://img.shields.io/badge/Открыть%20сборку-d33732)](https://jenkins.autotests.cloud/job/demoblaze-tests/)
 
-</details>
+### Параметры сборки:
+
+- `TEST_SUITE` — тестовый набор
+- `DRIVER_NAME` — наименование браузера
+- `DRIVER_VERSION` — версия браузера
+- `WINDOW_WIDTH` и `WINDOW_HEIGHT` — разрешение окна
+- `TIMEOUT` – максимальное время ожидания элемента
+- `ENVIRONMENT` — окружение, `COMMENT` — комментарий. Будут отображаться в уведомлении telegram'а
+
+
+
+## <img title="Allure TestOps" src="resources/icons/allure-testops.png" height="30" width="30"/> Allure TestOps
+
+## <img title="Jira" src="resources/icons/jira.png" height="30" width="30"/>  Jira
+
 
 ## Отчёты
 
-<details><summary>Локально</summary>
+<details><summary>При локальном запуске</summary>
 <br>
 
 ```
@@ -164,7 +129,7 @@ allure serve allure-results/
 
 </details>
 
-<details><summary>Удалённо</summary>
+<details><summary>При удаленном запуске</summary>
 
 <br>[Отчёт можно посмотреть в Jenkins](https://jenkins.autotests.cloud/job/13-telegram_torsukov-unit14/10/allure/):
 
@@ -179,39 +144,7 @@ allure serve allure-results/
 
 <img src="resources/selenoid-video-attach.gif">
 
-
 </details>
 
 
-## Ветви проекта
-
-<details><summary>Диаграмма</summary>
-<br>
-
-```mermaid
-gitGraph
-   commit id: "Initial commit"
-   branch develop
-   branch task/short-description
-   commit
-   commit
-   checkout develop
-   commit id: "Update README.md"
-   commit id: "Update .gitignore"
-   merge task/short-description
-   checkout main
-   merge develop
-   checkout develop
-   branch fix/short-description
-   commit
-   commit
-   checkout develop
-   merge fix/short-description
-   checkout main
-   merge develop
-
-
-```
-</details>
-
-
+ 
