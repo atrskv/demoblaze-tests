@@ -1,19 +1,22 @@
-from demoblaze_tests.utils import path
 from dataclasses import dataclass
 from typing import Dict, List
 import csv
+from demoblaze_tests.utils import path
 
 
 @dataclass
 class Product:
-    id: str
+    id: int
     name: str
     price: str
     description: str
     category: str
 
+    def __repr__(self) -> str:
+        return str(self.name)
 
-def get_from_file() -> List[Product]:
+
+def _get_products_from_file() -> List[Product]:
 
     with open(path(f'demoblaze_tests/data/files/products.csv')) as f:
         reader = csv.DictReader(f, delimiter=';')
@@ -21,7 +24,7 @@ def get_from_file() -> List[Product]:
 
         products = [
             Product(
-                id=product['id'],
+                id=int(product['id']),
                 name=product['name'],
                 price=product['price'],
                 description=product['description'],
@@ -33,15 +36,50 @@ def get_from_file() -> List[Product]:
     return products
 
 
-def get_by_name(value) -> Product:
+class Catalog:
+    def __init__(self, products: List[Product]):
+        self.products = products
 
-    return next(
-        (product for product in get_from_file() if product.name == value), None
-    )
+    def by_id(self, value: int) -> Product:
+        return next(
+            (
+                product
+                for product in _get_products_from_file()
+                if product.id == value
+            ),
+            None,
+        )
+
+    def by_ids(self, *values: int) -> List[Product]:
+        return [
+            product
+            for product in _get_products_from_file()
+            if product.id in values
+        ]
+
+    def by_name(self, value: str) -> Product:
+        return next(
+            (
+                product
+                for product in _get_products_from_file()
+                if product.name == value
+            ),
+            None,
+        )
+
+    def by_names(self, *values: str) -> List[Product]:
+        return [
+            product
+            for product in _get_products_from_file()
+            if product.name in values
+        ]
+
+    def by_category(self, value: str) -> List[Product]:
+        return [
+            product
+            for product in _get_products_from_file()
+            if product.category == value
+        ]
 
 
-def get_by_category(value) -> List[Product]:
-
-    return [
-        product for product in get_from_file() if product.category == value
-    ]
+catalog = Catalog(_get_products_from_file())
